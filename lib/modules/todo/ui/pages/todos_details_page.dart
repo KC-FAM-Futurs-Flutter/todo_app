@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:todo_app/core/locator/locator.dart';
 import 'package:todo_app/modules/todo/cubits/todo_list/todo_list_cubit.dart';
 import 'package:todo_app/modules/todo/cubits/todo_list/todo_list_state.dart';
 import 'package:todo_app/modules/todo/data/models/todo_model.dart';
@@ -22,6 +23,7 @@ class TodosDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TodoListCubit, TodoListState>(
+      bloc: locator<TodoListCubit>(),
       builder: (context, state) {
         return Scaffold(
           body: Center(child: Text(state.selectedTodo?.desc ?? '')),

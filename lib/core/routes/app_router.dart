@@ -13,15 +13,15 @@ final goRouter = GoRouter(
         return TodosPage();
       },
       routes: [
-        GoRoute(
-          path: 'details',
-          name: AppRouter.details.name,
-          builder: (context, state) {
-            return TodosDetailsPage(
-              // todoDetailsObject: state.extra as TodoDetailsObject,
-            );
-          },
-        ),
+        // GoRoute(
+        //   path: 'details',
+        //   name: AppRouter.details.name,
+        //   builder: (context, state) {
+        //     return TodosDetailsPage(
+        //       // todoDetailsObject: state.extra as TodoDetailsObject,
+        //     );
+        //   },
+        // ),
       ],
     ),
   ],

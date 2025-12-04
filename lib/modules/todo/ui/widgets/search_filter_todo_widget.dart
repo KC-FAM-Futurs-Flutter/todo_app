@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/core/locator/locator.dart';
 import 'package:todo_app/modules/todo/cubits/todo_list/todo_list_cubit.dart';
 import 'package:todo_app/modules/todo/data/models/todo_model.dart';
 import 'package:todo_app/modules/todo/ui/widgets/filter_button.dart';
@@ -21,7 +22,7 @@ class SearchFilterTodoWidget extends StatelessWidget {
 
           onChanged: (value) {
             print("onChanged");
-            context.read<TodoListCubit>().searchTodo(value);
+            locator<TodoListCubit>().searchTodo(value);
           },
           onSubmitted: (value) {
             print("OnSubmitted");

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/core/locator/locator.dart';
 import 'package:todo_app/modules/todo/cubits/todo_list/todo_list_cubit.dart';
 import 'package:todo_app/modules/todo/data/models/todo_model.dart';
 
@@ -28,7 +29,7 @@ class TodoItemWidget extends StatelessWidget {
         //   extra: TodoDetailsObject(todoModel: todoModel),
         // );
 
-        // context.read<TodoListCubit>().selectedCubit(todoModel);
+        // locator<TodoListCubit>().selectedCubit(todoModel);
 
         // context.goNamed(AppRouter.details.name);
 
@@ -45,7 +46,7 @@ class TodoItemWidget extends StatelessWidget {
               actions: [
                 TextButton(
                   onPressed: () {
-                    context.read<TodoListCubit>().editTodo(
+                    locator<TodoListCubit>().editTodo(
                       id: id,
                       todoDesc: myEditController.text,
                     );
@@ -71,7 +72,7 @@ class TodoItemWidget extends StatelessWidget {
         onChanged: (value) {
           print(value);
           print(isCompleted);
-          context.read<TodoListCubit>().toggleTodo(id);
+          locator<TodoListCubit>().toggleTodo(id);
         },
       ),
     );

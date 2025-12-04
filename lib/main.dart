@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_app/modules/todo/cubits/todo_list/todo_list_cubit.dart';
-import 'package:todo_app/routes/app_router.dart';
+import 'package:todo_app/core/locator/locator.dart';
+import 'package:todo_app/core/routes/app_router.dart';
 
-void main() {
+void main() async {
+  setUpLocator();
   runApp(const MainApp());
 }
 
@@ -12,9 +12,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<TodoListCubit>(
-      create: (context) => TodoListCubit(),
-      child: MaterialApp.router(routerConfig: goRouter),
-    );
+    return MaterialApp.router(routerConfig: goRouter);
   }
 }

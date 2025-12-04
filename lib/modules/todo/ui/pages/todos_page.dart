@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/core/locator/locator.dart';
 import 'package:todo_app/modules/todo/cubits/todo_list/todo_list_cubit.dart';
 import 'package:todo_app/modules/todo/cubits/todo_list/todo_list_state.dart';
 import 'package:todo_app/modules/todo/data/models/todo_model.dart';
@@ -18,8 +19,9 @@ class TodosPage extends StatelessWidget {
         children: [
           SizedBox(height: 70),
           BlocBuilder<TodoListCubit, TodoListState>(
+            bloc: locator<TodoListCubit>(),
             builder: (context, state) {
-              return TodoHeaderWidget(count: state.activeTodoCount);
+              return TodoHeaderWidget();
             },
           ),
           SizedBox(height: 20),
@@ -29,6 +31,7 @@ class TodosPage extends StatelessWidget {
               shrinkWrap: true,
               children: [
                 BlocBuilder<TodoListCubit, TodoListState>(
+                  bloc: locator<TodoListCubit>(),
                   builder: (context, state) {
                     if (state.todosFiltered.isEmpty &&
                         state.selectedFilter == Filter.active) {

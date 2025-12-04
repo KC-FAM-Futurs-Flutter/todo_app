@@ -1,10 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/modules/todo/cubits/todo_list/todo_list_state.dart';
 import 'package:todo_app/modules/todo/data/models/todo_model.dart';
+import 'package:todo_app/modules/todo/data/utils/data.mock.dart';
 
 class TodoListCubit extends Cubit<TodoListState> {
-  TodoListCubit() : super(TodoListState.initial()) {
+  TodoListCubit() : super(TodoListState()) {
+    initTodos();
     calculateActiveCount();
+  }
+
+  void initTodos() {
+    //Llamada al repositorio de los datos
+    emit(state.copyWith(todos: todosUserMock));
   }
 
   void toggleTodo(String id) {
@@ -104,6 +111,7 @@ class TodoListCubit extends Cubit<TodoListState> {
     emit(state.copyWith(todos: newTodos, selectedFilter: Filter.all));
 
     setFilteredTodos(state.selectedFilter);
+    calculateActiveCount();
   }
 
   void removeTodo(TodoModel todo) {
