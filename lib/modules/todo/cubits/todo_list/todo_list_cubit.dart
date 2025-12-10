@@ -1,23 +1,37 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/modules/todo/cubits/todo_list/todo_list_state.dart';
 import 'package:todo_app/modules/todo/data/models/todo_model.dart';
+import 'package:todo_app/modules/todo/data/providers/todo_local_provider.dart';
 import 'package:todo_app/modules/todo/data/utils/data.mock.dart';
 
 class TodoListCubit extends Cubit<TodoListState> {
   TodoListCubit() : super(TodoListState()) {
     initTodos();
-    calculateActiveCount();
   }
 
-  void initTodos() {
+  Future<void> initTodos() async {
     //Llamada al repositorio de los datos
-    emit(state.copyWith(todos: todosUserMock));
+    List<TodoModel> myInitList = [];
+
+    myInitList = await TodoLocalProvider().loadTodos();
+
+    emit(state.copyWith(todos: myInitList));
+
+    calculateActiveCount();
   }
 
   void toggleTodo(String id) {
     final List<TodoModel> newTodos = state.todos.map((todo) {
       if (todo.id == id) {
-        return TodoModel(desc: todo.desc, completed: !todo.completed);
+        final myNewModel = TodoModel(
+          desc: todo.desc,
+          completed: !todo.completed,
+
+          id: todo.id,
+        );
+
+        TodoLocalProvider().updateTodo(myNewModel);
+        return myNewModel;
       }
       return todo;
     }).toList();
@@ -31,7 +45,13 @@ class TodoListCubit extends Cubit<TodoListState> {
   void editTodo({required String id, required String todoDesc}) {
     final newTodos = state.todos.map((element) {
       if (element.id == id) {
-        return TodoModel(desc: todoDesc, id: id, completed: element.completed);
+        final myNewModel = TodoModel(
+          desc: todoDesc,
+          id: id,
+          completed: element.completed,
+        );
+        TodoLocalProvider().updateTodo(myNewModel);
+        return myNewModel;
       }
       return element;
     }).toList();
@@ -104,23 +124,29 @@ class TodoListCubit extends Cubit<TodoListState> {
   }
 
   void addTodo(String todoDesc) {
-    final TodoModel newTodo = TodoModel(desc: todoDesc);
+    final TodoModel newTodo = TodoModel(desc: todoDesc, id: uuid.v4());
 
     final List<TodoModel> newTodos = [...state.todos, newTodo];
 
     emit(state.copyWith(todos: newTodos, selectedFilter: Filter.all));
 
+    TodoLocalProvider().addTodo(newTodo);
+
     setFilteredTodos(state.selectedFilter);
+
     calculateActiveCount();
   }
 
   void removeTodo(TodoModel todo) {
-    // final List<TodoModel> newTodos = state.todos
-    //     .where((element) => id != element.id)
-    //     .toList();
+    final List<TodoModel> newTodos = state.todos
+        .where((element) => todo.id != element.id)
+        .toList();
 
-    List<TodoModel> newTodos = state.todos;
-    newTodos.remove(todo);
+    //Error: Copia por referencia
+    // List<TodoModel> newTodos = state.todos;
+    // newTodos.remove(todo);
+
+    TodoLocalProvider().deleteTodo(todo.id);
 
     emit(state.copyWith(todos: newTodos));
     setFilteredTodos(state.selectedFilter);

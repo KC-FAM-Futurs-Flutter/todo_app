@@ -2,6 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:todo_app/modules/todo/data/models/todo_model.dart';
 part 'todo_list_state.freezed.dart';
 
+enum Filter { all, active, completed }
+
 @freezed
 abstract class TodoListState with _$TodoListState {
   const factory TodoListState({
