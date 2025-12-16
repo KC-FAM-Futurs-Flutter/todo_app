@@ -6,7 +6,7 @@ import 'package:todo_app/modules/todo/data/utils/data.mock.dart';
 
 class TodoListCubit extends Cubit<TodoListState> {
   TodoListCubit() : super(TodoListState()) {
-    initTodos();
+    // initTodos();
   }
 
   Future<void> initTodos() async {
@@ -150,5 +150,10 @@ class TodoListCubit extends Cubit<TodoListState> {
 
     emit(state.copyWith(todos: newTodos));
     setFilteredTodos(state.selectedFilter);
+  }
+
+  void increment() {
+    int myNewValue = state.activeTodoCount + 1;
+    emit(state.copyWith(activeTodoCount: myNewValue));
   }
 }
