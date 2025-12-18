@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:todo_app/modules/todo/cubits/todo_list/todo_list_cubit.dart';
+import 'package:todo_app/modules/todo/data/providers/todo_firestore_provider.dart';
 
 GetIt locator = GetIt.instance;
 
@@ -9,6 +10,8 @@ void setUpLocator() async {
 
 registerCubits() async {
   if (!locator.isRegistered<TodoListCubit>()) {
-    locator.registerLazySingleton(() => TodoListCubit());
+    locator.registerLazySingleton(
+      () => TodoListCubit(todoProvider: TodoFirestoreProvider()),
+    );
   }
 }

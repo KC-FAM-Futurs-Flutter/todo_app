@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:todo_app/modules/todo/data/models/todo_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:todo_app/modules/todo/data/providers/todo_provider.dart';
 
-class TodoLocalProvider {
+class TodoLocalProvider implements TodoProvider {
   static const String todosKey = 'todos_key';
+  @override
   Future<List<TodoModel>> loadTodos() async {
     final prefs = await SharedPreferences.getInstance();
     final jsonString = prefs.getString(todosKey);
@@ -32,6 +34,7 @@ class TodoLocalProvider {
     await prefs.setString(todosKey, encoded);
   }
 
+  @override
   Future<void> addTodo(TodoModel todo) async {
     final todos = await loadTodos();
     todos.add(todo);
@@ -41,6 +44,7 @@ class TodoLocalProvider {
     await _saveTodos(todos);
   }
 
+  @override
   Future<void> updateTodo(TodoModel updated) async {
     final todos = await loadTodos();
 
@@ -55,12 +59,14 @@ class TodoLocalProvider {
     }
   }
 
+  @override
   Future<void> deleteTodo(String id) async {
     final todos = await loadTodos();
     todos.removeWhere((e) => e.id == id);
     await _saveTodos(todos);
   }
 
+  @override
   Future<void> clearTodos() async {
     final prefs = await SharedPreferences.getInstance();
 

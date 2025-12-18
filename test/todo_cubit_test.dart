@@ -1,27 +1,17 @@
-import 'dart:convert';
-
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
-import 'package:mockito/mockito.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:todo_app/modules/todo/cubits/todo_list/todo_list_cubit.dart';
 import 'package:todo_app/modules/todo/cubits/todo_list/todo_list_state.dart';
+import 'package:todo_app/modules/todo/data/providers/todo_fake_provider.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  // final getIt = GetIt.instance;
   late TodoListCubit cubit;
+  late TodoFakeProvider provider;
 
   setUp(() async {
-    SharedPreferences.setMockInitialValues({
-      'todos_key': jsonEncode([
-        {'id': '1', 'desc': 'Todo 1', 'completed': false},
-        {'id': '2', 'desc': 'Todo 2', 'completed': true},
-      ]),
-    });
-
-    // getIt.registerLazySingleton(() => TodoListCubit());
-    cubit = TodoListCubit();
+    provider = TodoFakeProvider();
+    cubit = TodoListCubit(todoProvider: provider);
     await cubit.initTodos();
   });
 
