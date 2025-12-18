@@ -6,7 +6,7 @@ import 'package:todo_app/modules/todo/data/utils/data.mock.dart';
 
 class TodoListCubit extends Cubit<TodoListState> {
   TodoListCubit() : super(TodoListState()) {
-    // initTodos();
+    initTodos();
   }
 
   Future<void> initTodos() async {

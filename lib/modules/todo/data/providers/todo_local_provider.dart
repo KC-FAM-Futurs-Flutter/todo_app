@@ -22,7 +22,7 @@ class TodoLocalProvider {
     return result;
   }
 
-  Future<void> saveTodos(List<TodoModel> todos) async {
+  Future<void> _saveTodos(List<TodoModel> todos) async {
     final prefs = await SharedPreferences.getInstance();
 
     final encoded = json.encode(todos.map((e) => e.toJson()).toList());
@@ -38,7 +38,7 @@ class TodoLocalProvider {
 
     print(todos);
 
-    await saveTodos(todos);
+    await _saveTodos(todos);
   }
 
   Future<void> updateTodo(TodoModel updated) async {
@@ -51,14 +51,14 @@ class TodoLocalProvider {
     if (index != -1) {
       todos[index] = updated;
 
-      await saveTodos(todos);
+      await _saveTodos(todos);
     }
   }
 
   Future<void> deleteTodo(String id) async {
     final todos = await loadTodos();
     todos.removeWhere((e) => e.id == id);
-    await saveTodos(todos);
+    await _saveTodos(todos);
   }
 
   Future<void> clearTodos() async {

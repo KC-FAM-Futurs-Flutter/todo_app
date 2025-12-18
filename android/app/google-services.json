@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "898894525268",
+    "project_id": "futurs-lacedemon",
+    "storage_bucket": "futurs-lacedemon.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:898894525268:android:34187177c8113e0e5bcec1",
+        "android_client_info": {
+          "package_name": "com.example.auth_module"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdg087HKQtBiJhjUFMrqQMesvsjUQvnR8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:898894525268:android:0a6e1e125e90ebe75bcec1",
+        "android_client_info": {
+          "package_name": "com.example.todo_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdg087HKQtBiJhjUFMrqQMesvsjUQvnR8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
