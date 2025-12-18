@@ -11,7 +11,7 @@ void main() {
 
   setUp(() async {
     provider = TodoFakeProvider();
-    cubit = TodoListCubit(todoProvider: provider);
+    cubit = TodoListCubit(todoRepository: provider);
     await cubit.initTodos();
   });
 

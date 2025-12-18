@@ -11,7 +11,7 @@ void setUpLocator() async {
 registerCubits() async {
   if (!locator.isRegistered<TodoListCubit>()) {
     locator.registerLazySingleton(
-      () => TodoListCubit(todoProvider: TodoFirestoreProvider()),
+      () => TodoListCubit(todoRepository: TodoFirestoreProvider()),
     );
   }
 }

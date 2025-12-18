@@ -1,6 +1,6 @@
 import 'package:todo_app/modules/todo/data/models/todo_model.dart';
 
-abstract class TodoProvider {
+abstract class TodoRepository {
   Future<List<TodoModel>> loadTodos();
 
   Future<void> addTodo(TodoModel todo);

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:todo_app/modules/todo/data/models/todo_model.dart';
-import 'package:todo_app/modules/todo/data/providers/todo_provider.dart';
+import 'package:todo_app/modules/todo/data/repository/todo_repository.dart';
 
-class TodoFirestoreProvider implements TodoProvider {
+class TodoFirestoreProvider implements TodoRepository {
   static const String todosKey = 'todos';
   @override
   Future<List<TodoModel>> loadTodos() async {

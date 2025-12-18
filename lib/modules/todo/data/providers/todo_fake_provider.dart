@@ -1,7 +1,7 @@
 import 'package:todo_app/modules/todo/data/models/todo_model.dart';
-import 'package:todo_app/modules/todo/data/providers/todo_provider.dart';
+import 'package:todo_app/modules/todo/data/repository/todo_repository.dart';
 
-class TodoFakeProvider implements TodoProvider {
+class TodoFakeProvider implements TodoRepository {
   final List<TodoModel> _todosUserMock = [
     TodoModel(desc: "Todo 1", completed: false, id: '1'),
     TodoModel(desc: "Todo 2", completed: true, id: '2'),

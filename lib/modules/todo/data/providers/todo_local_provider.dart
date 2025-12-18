@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:todo_app/modules/todo/data/models/todo_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:todo_app/modules/todo/data/providers/todo_provider.dart';
+import 'package:todo_app/modules/todo/data/repository/todo_repository.dart';
 
-class TodoLocalProvider implements TodoProvider {
+class TodoLocalProvider implements TodoRepository {
   static const String todosKey = 'todos_key';
   @override
   Future<List<TodoModel>> loadTodos() async {

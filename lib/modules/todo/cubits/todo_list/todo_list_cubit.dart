@@ -2,20 +2,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/modules/todo/cubits/todo_list/todo_list_state.dart';
 import 'package:todo_app/modules/todo/data/models/todo_model.dart';
 
-import 'package:todo_app/modules/todo/data/providers/todo_provider.dart';
+import 'package:todo_app/modules/todo/data/repository/todo_repository.dart';
 
 class TodoListCubit extends Cubit<TodoListState> {
-  final TodoProvider todoProvider;
-  TodoListCubit({required this.todoProvider}) : super(TodoListState()) {
+  final TodoRepository todoRepository;
+  TodoListCubit({required this.todoRepository}) : super(TodoListState()) {
     initTodos();
   }
-  // final todoProvider = TodoFirestoreProvider();
+  // final todoRepository = TodoFirestoreProvider();
 
   Future<void> initTodos() async {
     //Llamada al repositorio de los datos
     List<TodoModel> myInitList = [];
 
-    myInitList = await todoProvider.loadTodos();
+    myInitList = await todoRepository.loadTodos();
 
     emit(state.copyWith(todos: myInitList));
 
@@ -32,7 +32,7 @@ class TodoListCubit extends Cubit<TodoListState> {
           id: todo.id,
         );
 
-        todoProvider.updateTodo(myNewModel);
+        todoRepository.updateTodo(myNewModel);
         return myNewModel;
       }
       return todo;
@@ -52,7 +52,7 @@ class TodoListCubit extends Cubit<TodoListState> {
           id: id,
           completed: element.completed,
         );
-        todoProvider.updateTodo(myNewModel);
+        todoRepository.updateTodo(myNewModel);
         return myNewModel;
       }
       return element;
@@ -132,7 +132,7 @@ class TodoListCubit extends Cubit<TodoListState> {
 
     emit(state.copyWith(todos: newTodos, selectedFilter: Filter.all));
 
-    todoProvider.addTodo(newTodo);
+    todoRepository.addTodo(newTodo);
 
     setFilteredTodos(state.selectedFilter);
 
@@ -148,7 +148,7 @@ class TodoListCubit extends Cubit<TodoListState> {
     // List<TodoModel> newTodos = state.todos;
     // newTodos.remove(todo);
 
-    todoProvider.deleteTodo(todo.id);
+    todoRepository.deleteTodo(todo.id);
 
     emit(state.copyWith(todos: newTodos));
     setFilteredTodos(state.selectedFilter);
